@@ -92,7 +92,7 @@
             Controls.Add(textBoxPassword);
             MinimumSize = new Size(800, 600);
             Name = "Form1";
-            Text = "Form1";
+            Text = "SQL-ToolBox";
             Load += Form1_Load;
             Resize += Form1_Resize;
             ResumeLayout(false);
