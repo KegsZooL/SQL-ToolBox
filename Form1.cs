@@ -37,7 +37,7 @@ namespace SQLPrograms
                     Controls.Remove(Controls[Controls.Count - 1]);
                 }
 
-                EventHandler.AddToDelegate(new List<IControlsUI>() { new DataTabelSQL(), new PanelSQLCode(), new ButtonExecuteSQLCode() });
+                EventHandler.AddToDelegate(new List<IControlsUI>() { new DataTabelSQL(), new PanelSQLCode(), new ButtonExecuteSQLCodeHandler() });
                 EventHandler.NotifyCreateUI(ref CurrentForm);
 
                 originalControlRectangle.Clear();
@@ -65,6 +65,11 @@ namespace SQLPrograms
                 control.Location = new Point(newX, newY);
                 control.Size = new Size(newWidth, newHeight);
             }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("yess!");
         }
     }
 }

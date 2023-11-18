@@ -1,7 +1,7 @@
 ﻿namespace SQLPrograms
 {
-    class ButtonExecuteSQLCode : IControlsUI
-    {   
+    class ButtonExecuteSQLCodeHandler : IControlsUI
+    {
         public void CreateControls(ref Form form)
         {
             Button buttonExecuteSQLCode = new Button();
@@ -13,7 +13,14 @@
 
             buttonExecuteSQLCode.Text = "Execute";
 
+            buttonExecuteSQLCode.Click += buttonExecuteSQLCode_Click;
+
             form.Controls.Add(buttonExecuteSQLCode);
+        }
+
+        private void buttonExecuteSQLCode_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
