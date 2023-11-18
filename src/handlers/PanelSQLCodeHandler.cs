@@ -1,0 +1,6 @@
+﻿namespace SQLProgram
+{
+    class PanelSQLCodeHandler
+    {
+    }
+}

@@ -1,4 +1,4 @@
-﻿namespace SQLPrograms
+﻿namespace SQLProgram
 {
     class EventHandler
     {

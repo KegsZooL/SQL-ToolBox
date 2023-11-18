@@ -1,6 +1,6 @@
-﻿namespace SQLPrograms
+﻿namespace SQLProgram
 {
-    partial class Form1
+    partial class SQLToolBox
     {
         /// <summary>
         ///  Required designer variable.
@@ -28,23 +28,23 @@
         /// </summary>
         private void InitializeComponent()
         {
-            button1 = new Button();
+            buttonEnter = new Button();
             textBoxPassword = new TextBox();
             textBoxLogin = new TextBox();
-            label2 = new Label();
-            label1 = new Label();
+            labelYourPassword = new Label();
+            labelYourLogin = new Label();
             SuspendLayout();
             // 
             // button1
             // 
-            button1.Anchor = AnchorStyles.Bottom;
-            button1.Location = new Point(315, 422);
-            button1.Name = "button1";
-            button1.Size = new Size(158, 51);
-            button1.TabIndex = 0;
-            button1.Text = "Enter";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            buttonEnter.Anchor = AnchorStyles.Bottom;
+            buttonEnter.Location = new Point(315, 422);
+            buttonEnter.Name = "button1";
+            buttonEnter.Size = new Size(158, 51);
+            buttonEnter.TabIndex = 0;
+            buttonEnter.Text = "Enter";
+            buttonEnter.UseVisualStyleBackColor = true;
+            buttonEnter.Click += buttonEnter_Click;
             // 
             // textBoxPassword
             // 
@@ -64,47 +64,47 @@
             // 
             // label2
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(254, 203);
-            label2.Name = "label2";
-            label2.Size = new Size(117, 15);
-            label2.TabIndex = 4;
-            label2.Text = "Enter your password:";
+            labelYourPassword.AutoSize = true;
+            labelYourPassword.Location = new Point(254, 203);
+            labelYourPassword.Name = "label2";
+            labelYourPassword.Size = new Size(117, 15);
+            labelYourPassword.TabIndex = 4;
+            labelYourPassword.Text = "Enter your password:";
             // 
             // label1
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(254, 132);
-            label1.Name = "label1";
-            label1.Size = new Size(94, 15);
-            label1.TabIndex = 3;
-            label1.Text = "Enter your login:";
+            labelYourLogin.AutoSize = true;
+            labelYourLogin.Location = new Point(254, 132);
+            labelYourLogin.Name = "label1";
+            labelYourLogin.Size = new Size(94, 15);
+            labelYourLogin.TabIndex = 3;
+            labelYourLogin.Text = "Enter your login:";
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 561);
-            Controls.Add(label1);
-            Controls.Add(label2);
+            Controls.Add(labelYourLogin);
+            Controls.Add(labelYourPassword);
             Controls.Add(textBoxLogin);
-            Controls.Add(button1);
+            Controls.Add(buttonEnter);
             Controls.Add(textBoxPassword);
             MinimumSize = new Size(800, 600);
             Name = "Form1";
             Text = "SQL-ToolBox";
-            Load += Form1_Load;
-            Resize += Form1_Resize;
+            Load += SQLTooLBox_Load;
+            Resize += SQLToolBox_Resize;
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private Button button1;
+        private Button buttonEnter;
         private TextBox textBoxPassword;
         private TextBox textBoxLogin;
-        private Label label2;
-        private Label label1;
+        private Label labelYourPassword;
+        private Label labelYourLogin;
     }
 }

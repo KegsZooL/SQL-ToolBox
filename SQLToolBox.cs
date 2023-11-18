@@ -1,6 +1,6 @@
-namespace SQLPrograms
+namespace SQLProgram
 {
-    public partial class Form1 : Form
+    public partial class SQLToolBox : Form
     {
         SQLServerHandler sqlServerHandler = new SQLServerHandler();
 
@@ -10,14 +10,14 @@ namespace SQLPrograms
 
         Form CurrentForm;
 
-        public Form1()
+        public SQLToolBox()
         {
             CurrentForm = this;
 
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void SQLTooLBox_Load(object sender, EventArgs e)
         {
             sqlServerHandler.Connect();
             originalFormSize = new Rectangle(this.Location.X, this.Location.Y, this.Size.Width, this.Size.Height);
@@ -28,7 +28,7 @@ namespace SQLPrograms
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void buttonEnter_Click(object sender, EventArgs e)
         {
             if (sqlServerHandler.Autorization(userPassword: textBoxPassword.Text, userLogin: textBoxLogin.Text))
             {
@@ -46,10 +46,10 @@ namespace SQLPrograms
                 {
                     originalControlRectangle.Add(control, new Rectangle(control.Location.X, control.Location.Y, control.Width, control.Height));
                 }
-                Form1_Resize(this, e);
+                SQLToolBox_Resize(this, e);
             }
         }
-        private void Form1_Resize(object sender, EventArgs e)
+        private void SQLToolBox_Resize(object sender, EventArgs e)
         {
             foreach (Control control in originalControlRectangle.Keys)
             {
@@ -65,11 +65,6 @@ namespace SQLPrograms
                 control.Location = new Point(newX, newY);
                 control.Size = new Size(newWidth, newHeight);
             }
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("yess!");
         }
     }
 }
