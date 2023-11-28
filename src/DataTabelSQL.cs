@@ -8,11 +8,14 @@
 
             dataGridView.Location = new Point(ISQL.SHIFT, ISQL.SHIFT);
             dataGridView.Size = new Size(form.ClientSize.Width / 2 - ISQL.SHIFT, form.ClientSize.Height - (ISQL.SHIFT * 2));
+            
             dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            
             dataGridView.ScrollBars = ScrollBars.Vertical;
 
-            SQLServerHandler.GetData(ref dataGridView);
+            //SQLServerHandler.ExecuteCommandHandlerForType(ref dataGridView, SQLServerHandler.GetData);
+            SQLServer.GetData(ref dataGridView);
 
             form.Controls.Add(dataGridView);
         }

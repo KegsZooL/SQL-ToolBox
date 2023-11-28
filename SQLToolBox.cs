@@ -2,7 +2,7 @@ namespace SQLProgram
 {
     public partial class SQLToolBox : Form
     {
-        SQLServerHandler sqlServerHandler = new SQLServerHandler();
+        SQLServer sqlServerHandler = new SQLServer();
 
         Rectangle originalFormSize;
 
@@ -10,10 +10,14 @@ namespace SQLProgram
 
         Form CurrentForm;
 
+        UIEventHandler UI = new UIEventHandler();
+        SQLCommandEventHandler sqlCommandEventHandler = new SQLCommandEventHandler();
+
+
         public SQLToolBox()
         {
             CurrentForm = this;
-
+                
             InitializeComponent();
         }
 
@@ -37,8 +41,10 @@ namespace SQLProgram
                     Controls.Remove(Controls[Controls.Count - 1]);
                 }
 
-                EventHandler.AddToDelegate(new List<IControlsUI>() { new DataTabelSQL(), new PanelSQLCode(), new ButtonExecuteSQLCodeHandler() });
-                EventHandler.NotifyCreateUI(ref CurrentForm);
+                UI.Subscribe(new List<IControlsUI>() { new DataTabelSQL(), new PanelSQLCode(), new ButtonExecuteSQLCode() });
+                UI.Notify(ref CurrentForm);
+
+                sqlCommandEventHandler.Subscribe(new List<ISQL>() { new SQLServer() });
 
                 originalControlRectangle.Clear();
 

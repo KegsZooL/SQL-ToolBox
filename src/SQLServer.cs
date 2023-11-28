@@ -3,7 +3,7 @@ using System.Data;
 
 namespace SQLProgram
 {   
-    class SQLServerHandler : ISQL
+    class SQLServer : ISQL
     {
         static MySqlCommand mySqlCommand;
         static MySqlConnection mySqlConnection;
@@ -39,12 +39,18 @@ namespace SQLProgram
             }
             return true;
         }
+        public void ExecuteCommand(ref string command)
+        {   
+            mySqlCommand = new MySqlCommand(command, mySqlConnection);
 
-        public static void GetData(ref DataGridView dataGridView) 
+            MySqlDataAdapter mySqlDataAdapter = new MySqlDataAdapter(mySqlCommand);
+        }
+
+        public static void GetData(ref DataGridView dataGridView)
         {
-            string quary = "SELECT * FROM othertable";
+            const string query = "SELECT * FROM othertable";
 
-            mySqlCommand = new MySqlCommand(quary, mySqlConnection);
+            mySqlCommand = new MySqlCommand(query, mySqlConnection);
 
             MySqlDataAdapter mySqlDataAdapter = new MySqlDataAdapter(mySqlCommand);
 
@@ -54,5 +60,21 @@ namespace SQLProgram
 
             dataGridView.DataSource = dataTable;
         }
+
+        //public static void ExecuteCommandHandlerForType<T>(ref T value, Action<T> method)
+        //{
+        //    switch (value)
+        //    {
+        //        case (string):
+        //            method(value);
+
+        //            break;
+
+        //        case (DataGridView):
+        //            method(value);
+
+        //            break;
+        //    }
+        //}
     }
 }

@@ -2,15 +2,17 @@
 {
     class PanelSQLCode : IControlsUI
     {
+        static RichTextBox richTextBox = new RichTextBox();
+        
         public void CreateControls(ref Form form)
         {
-            RichTextBox frameSqlCode = new RichTextBox();
+            richTextBox.Location = new Point((form.ClientSize.Width / 2) + ISQL.SHIFT, ISQL.SHIFT);
+            richTextBox.Multiline = true;
+            richTextBox.Size = new Size((form.ClientSize.Width / 2) - ISQL.SHIFT * 2, form.ClientSize.Height - ISQL.SHIFT * 4);
 
-            frameSqlCode.Location = new Point((form.ClientSize.Width / 2) + ISQL.SHIFT, ISQL.SHIFT);
-            frameSqlCode.Multiline = true;
-            frameSqlCode.Size = new Size((form.ClientSize.Width / 2) - ISQL.SHIFT * 2, form.ClientSize.Height - ISQL.SHIFT * 4);
-
-            form.Controls.Add(frameSqlCode);
+            form.Controls.Add(richTextBox);                            
         }
+
+        public static string GetCommandFromPanel() => richTextBox.Text;
     }
 }
