@@ -5,7 +5,7 @@
         const string HOST = "localhost",
         DATABASE = "db",
         USER = "root",
-        PASSWORD = "Den300044",
+        PASSWORD = "468ce48858eb8c9b7179ee359a6967fb",
         
         CONNECT = $"Database={DATABASE};Datasource={HOST};" +
             $"User={USER};Password={PASSWORD};";
