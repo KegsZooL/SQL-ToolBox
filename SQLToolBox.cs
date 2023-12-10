@@ -11,8 +11,6 @@ namespace SQLProgram
         Form CurrentForm;
 
         UIEventHandler UI = new UIEventHandler();
-        SQLCommandEventHandler sqlCommandEventHandler = new SQLCommandEventHandler();
-
 
         public SQLToolBox()
         {
@@ -44,8 +42,7 @@ namespace SQLProgram
                 UI.Subscribe(new List<IControlsUI>() { new DataTabelSQL(), new PanelSQLCode(), new ButtonExecuteSQLCode() });
                 UI.Notify(ref CurrentForm);
 
-                sqlCommandEventHandler.Subscribe(new List<ISQL>() { new SQLServer() });
-
+                SQLCommandEventHandler.Subscribe(new List<ISQL>() { new SQLServer() });
                 originalControlRectangle.Clear();
 
                 foreach (Control control in Controls)

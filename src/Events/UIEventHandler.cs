@@ -1,6 +1,6 @@
 ﻿namespace SQLProgram
 {    
-    class UIEventHandler : IEventHandler
+    class UIEventHandler
     {
         delegate void AuthenticatedEventHandler(ref Form form);
         static event AuthenticatedEventHandler UserAuthenticated;

@@ -39,11 +39,10 @@ namespace SQLProgram
             }
             return true;
         }
-        public void ExecuteCommand(ref string command)
+
+        public void ExecuteCommand(string command)
         {   
             mySqlCommand = new MySqlCommand(command, mySqlConnection);
-
-            MySqlDataAdapter mySqlDataAdapter = new MySqlDataAdapter(mySqlCommand);
         }
 
         public static void GetData(ref DataGridView dataGridView)
@@ -60,21 +59,5 @@ namespace SQLProgram
 
             dataGridView.DataSource = dataTable;
         }
-
-        //public static void ExecuteCommandHandlerForType<T>(ref T value, Action<T> method)
-        //{
-        //    switch (value)
-        //    {
-        //        case (string):
-        //            method(value);
-
-        //            break;
-
-        //        case (DataGridView):
-        //            method(value);
-
-        //            break;
-        //    }
-        //}
     }
 }

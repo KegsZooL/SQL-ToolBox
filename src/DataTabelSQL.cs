@@ -13,8 +13,6 @@
             dataGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             
             dataGridView.ScrollBars = ScrollBars.Vertical;
-
-            //SQLServerHandler.ExecuteCommandHandlerForType(ref dataGridView, SQLServerHandler.GetData);
             SQLServer.GetData(ref dataGridView);
 
             form.Controls.Add(dataGridView);

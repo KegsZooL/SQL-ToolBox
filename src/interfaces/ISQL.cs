@@ -13,6 +13,6 @@
         const int SHIFT = 35;
         public void Connect();
         public bool Autorization(string userLogin, string userPassword);
-        public void ExecuteCommand(ref string command);
+        public void ExecuteCommand(string command);
     }
 }
