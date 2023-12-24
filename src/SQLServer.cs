@@ -3,17 +3,29 @@ using System.Data;
 
 namespace SQLProgram
 {   
-    class SQLServer : ISQL
+    class SQLServer
     {
         static MySqlCommand mySqlCommand;
         static MySqlConnection mySqlConnection;
+        static DataTable dataTable = new DataTable();
+        static MySqlDataAdapter mySqlDataAdapter = new MySqlDataAdapter();
+        public static DataGridView dataGridView = new DataGridView();
+        
+        static readonly string HOST = "localhost",
+        DATABASE = "db",
+        USER = "root",
+        PASSWORD = "468ce48858eb8c9b7179ee359a6967fb",
+        CONNECT = $"Database={DATABASE};Datasource={HOST};" +
+            $"User={USER};Password={PASSWORD};";
 
         public void Connect() 
         {
             try
             {
-                mySqlConnection = new MySqlConnection(connectionString: ISQL.CONNECT);
+                mySqlConnection = new MySqlConnection(connectionString: CONNECT);
                 mySqlConnection.Open();
+
+                dataGridView.DataSource = dataTable;
             }
             catch (MySqlException)
             {
@@ -40,24 +52,26 @@ namespace SQLProgram
             return true;
         }
 
-        public void ExecuteCommand(string command)
-        {   
-            mySqlCommand = new MySqlCommand(command, mySqlConnection);
-        }
-
-        public static void GetData(ref DataGridView dataGridView)
+        public static void ExecuteCommand(string command)
         {
-            const string query = "SELECT * FROM othertable";
+            if (command.Length <= 0)
+                return;
+            try 
+            {
+                using (mySqlDataAdapter.SelectCommand = new MySqlCommand(command, mySqlConnection))
+                {
+                    dataTable.Clear();
+                    dataGridView.DataSource = dataTable;
+                    mySqlDataAdapter.Fill(dataTable);
+                }
+            }
+            catch(MySqlException exc) 
+            {   
+                mySqlDataAdapter.SelectCommand.CommandText = "SELECT * FROM othertable";
+                mySqlDataAdapter.Fill(dataTable);
 
-            mySqlCommand = new MySqlCommand(query, mySqlConnection);
-
-            MySqlDataAdapter mySqlDataAdapter = new MySqlDataAdapter(mySqlCommand);
-
-            DataTable dataTable = new DataTable();
-
-            mySqlDataAdapter.Fill(dataTable);
-
-            dataGridView.DataSource = dataTable;
+                MessageBox.Show($"{exc.Message}", "SQL syntax error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

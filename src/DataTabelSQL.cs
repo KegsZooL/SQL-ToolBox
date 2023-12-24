@@ -4,17 +4,15 @@
     {
         public void CreateControls(ref Form form)
         {
-            DataGridView dataGridView = new DataGridView();
+            DataGridView dataGridView = SQLServer.dataGridView;
 
-            dataGridView.Location = new Point(ISQL.SHIFT, ISQL.SHIFT);
-            dataGridView.Size = new Size(form.ClientSize.Width / 2 - ISQL.SHIFT, form.ClientSize.Height - (ISQL.SHIFT * 2));
-            
+            dataGridView.Location = new Point(IControlsUI.SHIFT, IControlsUI.SHIFT);
+            dataGridView.Size = new Size(form.ClientSize.Width / 2 - IControlsUI.SHIFT, form.ClientSize.Height - (IControlsUI.SHIFT * 2));
             dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-            
             dataGridView.ScrollBars = ScrollBars.Vertical;
-            SQLServer.GetData(ref dataGridView);
 
+            SQLServer.ExecuteCommand("SELECT * FROM othertable;");
             form.Controls.Add(dataGridView);
         }
     }
