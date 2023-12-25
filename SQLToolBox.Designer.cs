@@ -28,70 +28,90 @@
         /// </summary>
         private void InitializeComponent()
         {
-            buttonEnter = new Button();
             textBoxPassword = new TextBox();
-            textBoxLogin = new TextBox();
-            labelYourPassword = new Label();
-            labelYourLogin = new Label();
+            textBoxUser = new TextBox();
+            textBoxHost = new TextBox();
+            buttonConnect = new Button();
+            labelUser = new Label();
+            labelHost = new Label();
+            labelPassword = new Label();
             SuspendLayout();
-            // 
-            // button1
-            // 
-            buttonEnter.Anchor = AnchorStyles.Bottom;
-            buttonEnter.Location = new Point(315, 422);
-            buttonEnter.Name = "button1";
-            buttonEnter.Size = new Size(158, 51);
-            buttonEnter.TabIndex = 0;
-            buttonEnter.Text = "Enter";
-            buttonEnter.UseVisualStyleBackColor = true;
-            buttonEnter.Click += buttonEnter_Click;
             // 
             // textBoxPassword
             // 
-            textBoxPassword.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            textBoxPassword.Location = new Point(254, 160);
+            textBoxPassword.Location = new Point(254, 310);
             textBoxPassword.Name = "textBoxPassword";
             textBoxPassword.Size = new Size(284, 23);
-            textBoxPassword.TabIndex = 1;
+            textBoxPassword.TabIndex = 5;
             // 
-            // textBoxLogin
+            // textBoxUser
             // 
-            textBoxLogin.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            textBoxLogin.Location = new Point(254, 231);
-            textBoxLogin.Name = "textBoxLogin";
-            textBoxLogin.Size = new Size(284, 23);
-            textBoxLogin.TabIndex = 2;
+            textBoxUser.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            textBoxUser.Location = new Point(254, 231);
+            textBoxUser.Name = "textBoxUser";
+            textBoxUser.Size = new Size(284, 23);
+            textBoxUser.TabIndex = 2;
             // 
-            // label2
+            // textBoxHost
             // 
-            labelYourPassword.AutoSize = true;
-            labelYourPassword.Location = new Point(254, 203);
-            labelYourPassword.Name = "label2";
-            labelYourPassword.Size = new Size(117, 15);
-            labelYourPassword.TabIndex = 4;
-            labelYourPassword.Text = "Enter your password:";
+            textBoxHost.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            textBoxHost.Location = new Point(254, 160);
+            textBoxHost.Name = "textBoxHost";
+            textBoxHost.Size = new Size(284, 23);
+            textBoxHost.TabIndex = 1;
             // 
-            // label1
+            // buttonConnect
             // 
-            labelYourLogin.AutoSize = true;
-            labelYourLogin.Location = new Point(254, 132);
-            labelYourLogin.Name = "label1";
-            labelYourLogin.Size = new Size(94, 15);
-            labelYourLogin.TabIndex = 3;
-            labelYourLogin.Text = "Enter your login:";
+            buttonConnect.Anchor = AnchorStyles.Bottom;
+            buttonConnect.Location = new Point(315, 422);
+            buttonConnect.Name = "buttonConnect";
+            buttonConnect.Size = new Size(158, 51);
+            buttonConnect.TabIndex = 0;
+            buttonConnect.Text = "Connect";
+            buttonConnect.UseVisualStyleBackColor = true;
+            buttonConnect.Click += buttonConnect_Click;
             // 
-            // Form1
+            // labelUser
+            // 
+            labelUser.AutoSize = true;
+            labelUser.Location = new Point(254, 203);
+            labelUser.Name = "labelUser";
+            labelUser.Size = new Size(33, 15);
+            labelUser.TabIndex = 4;
+            labelUser.Text = "User:";
+            // 
+            // labelHost
+            // 
+            labelHost.AutoSize = true;
+            labelHost.Location = new Point(254, 132);
+            labelHost.Name = "labelHost";
+            labelHost.Size = new Size(35, 15);
+            labelHost.TabIndex = 3;
+            labelHost.Text = "Host:";
+            // 
+            // labelPassword
+            // 
+            labelPassword.AutoSize = true;
+            labelPassword.Location = new Point(254, 283);
+            labelPassword.Name = "labelPassword";
+            labelPassword.Size = new Size(60, 15);
+            labelPassword.TabIndex = 6;
+            labelPassword.Text = "Password:";
+            // 
+            // SQLToolBox
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 561);
-            Controls.Add(labelYourLogin);
-            Controls.Add(labelYourPassword);
-            Controls.Add(textBoxLogin);
-            Controls.Add(buttonEnter);
+            Controls.Add(labelPassword);
             Controls.Add(textBoxPassword);
+            Controls.Add(labelHost);
+            Controls.Add(labelUser);
+            Controls.Add(textBoxUser);
+            Controls.Add(buttonConnect);
+            Controls.Add(textBoxHost);
             MinimumSize = new Size(800, 600);
-            Name = "Form1";
+            Name = "SQLToolBox";
             Text = "SQL-ToolBox";
             Load += SQLTooLBox_Load;
             Resize += SQLToolBox_Resize;
@@ -101,10 +121,12 @@
 
         #endregion
 
-        private Button buttonEnter;
+        private Button buttonConnect;
+        private TextBox textBoxHost;
+        private TextBox textBoxUser;
+        private Label labelUser;
+        private Label labelHost;
         private TextBox textBoxPassword;
-        private TextBox textBoxLogin;
-        private Label labelYourPassword;
-        private Label labelYourLogin;
+        private Label labelPassword;
     }
 }

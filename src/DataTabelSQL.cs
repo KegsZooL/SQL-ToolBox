@@ -12,7 +12,6 @@
             dataGridView.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dataGridView.ScrollBars = ScrollBars.Vertical;
 
-            SQLServer.ExecuteCommand("SELECT * FROM othertable;");
             form.Controls.Add(dataGridView);
         }
     }

@@ -5,53 +5,29 @@ namespace SQLProgram
 {   
     class SQLServer
     {
-        static MySqlCommand mySqlCommand;
         static MySqlConnection mySqlConnection;
         static DataTable dataTable = new DataTable();
         static MySqlDataAdapter mySqlDataAdapter = new MySqlDataAdapter();
         public static DataGridView dataGridView = new DataGridView();
-        
-        static readonly string HOST = "localhost",
-        DATABASE = "db",
-        USER = "root",
-        PASSWORD = "468ce48858eb8c9b7179ee359a6967fb",
-        CONNECT = $"Database={DATABASE};Datasource={HOST};" +
-            $"User={USER};Password={PASSWORD};";
 
-        public void Connect() 
+        public bool Connect(string host, string user, string password)
         {
+            //string connectionString = $"Data Source={host};User Id={user};Password={password};";
+            string connectionString = $"Data Source=localhost;User Id=root;Password=468ce48858eb8c9b7179ee359a6967fb;";
+
             try
             {
-                mySqlConnection = new MySqlConnection(connectionString: CONNECT);
+                mySqlConnection = new MySqlConnection(connectionString);
                 mySqlConnection.Open();
-
-                dataGridView.DataSource = dataTable;
             }
-            catch (MySqlException)
+            catch (MySqlException ex)
             {
-                MessageBox.Show("Falied to сonnection to the database!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Environment.Exit(0);
-            }
-        }
-
-        public bool Autorization(string userPassword, string userLogin) 
-        {
-            mySqlCommand = mySqlConnection.CreateCommand();
-            mySqlCommand.CommandText = $"SELECT login, password FROM " +
-                $"othertable WHERE login = \"{userLogin}\" AND password = \"{userPassword}\"";
-
-            using (MySqlDataReader mySqlDataReader = mySqlCommand.ExecuteReader())
-            {
-                if (!mySqlDataReader.HasRows)
-                {
-                    MessageBox.Show("LOGIN ERROR. Check your data for validity",
-                        "Uppss...", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return false;
-                }
+                MessageBox.Show($"{ex.Message}", "Falied to сonnection to the database!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
             }
             return true;
         }
-
+        
         public static void ExecuteCommand(string command)
         {
             if (command.Length <= 0)
@@ -65,12 +41,24 @@ namespace SQLProgram
                     mySqlDataAdapter.Fill(dataTable);
                 }
             }
-            catch(MySqlException exc) 
+            catch(MySqlException ex) 
             {   
                 mySqlDataAdapter.SelectCommand.CommandText = "SELECT * FROM othertable";
                 mySqlDataAdapter.Fill(dataTable);
 
-                MessageBox.Show($"{exc.Message}", "SQL syntax error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"{ex.Message}", "SQL syntax error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        public static void ChangeDataBase(string dataBase) 
+        {   
+            try 
+            {
+                mySqlConnection.ChangeDatabase(dataBase);
+            }
+            catch(MySqlException ex)
+            {
+                MessageBox.Show($"{ex.Message}", "Incorrect database selection", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

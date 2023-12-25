@@ -15,13 +15,12 @@ namespace SQLProgram
         public SQLToolBox()
         {
             CurrentForm = this;
-                
+
             InitializeComponent();
         }
 
         private void SQLTooLBox_Load(object sender, EventArgs e)
         {
-            sqlServerHandler.Connect();
             originalFormSize = new Rectangle(this.Location.X, this.Location.Y, this.Size.Width, this.Size.Height);
 
             foreach (Control control in Controls)
@@ -30,19 +29,19 @@ namespace SQLProgram
             }
         }
 
-        private void buttonEnter_Click(object sender, EventArgs e)
+        private void buttonConnect_Click(object sender, EventArgs e)
         {
-            if (sqlServerHandler.Autorization(userPassword: textBoxPassword.Text, userLogin: textBoxLogin.Text))
+            if (sqlServerHandler.Connect(textBoxHost.Text, textBoxUser.Text, textBoxPassword.Text))
             {
                 while (Controls.Count != 0)
                 {
                     Controls.Remove(Controls[Controls.Count - 1]);
                 }
 
-                UI.Subscribe(new List<IControlsUI>() { new DataTabelSQL(), new PanelSQLCode(), new ButtonExecuteSQLCode() });
+                UI.Subscribe(new List<IControlsUI>() { new DataTabelSQL(), new PanelSQLCode(), 
+                                                       new ButtonExecuteSQLCode(), new DataBaseList() });
                 UI.Notify(ref CurrentForm);
 
-                //SQLCommandEventHandler.Subscribe(new List<ISQL>() { new SQLServer() });
                 originalControlRectangle.Clear();
 
                 foreach (Control control in Controls)
@@ -52,6 +51,7 @@ namespace SQLProgram
                 SQLToolBox_Resize(this, e);
             }
         }
+
         private void SQLToolBox_Resize(object sender, EventArgs e)
         {
             foreach (Control control in originalControlRectangle.Keys)
