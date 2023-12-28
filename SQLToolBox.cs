@@ -15,7 +15,7 @@ namespace SQLProgram
         public SQLToolBox()
         {
             CurrentForm = this;
-
+            
             InitializeComponent();
         }
 
@@ -38,7 +38,7 @@ namespace SQLProgram
                     Controls.Remove(Controls[Controls.Count - 1]);
                 }
 
-                UI.Subscribe(new List<IControlsUI>() { new DataTabelSQL(), new PanelSQLCode(), 
+                UI.Subscribe(new List<IControlsUI>() { new DataTableSQL(), new PanelSQLCode(), 
                                                        new ButtonExecuteSQLCode(), new DataBaseList() });
                 UI.Notify(ref CurrentForm);
 

@@ -1,8 +1,10 @@
 ﻿namespace SQLProgram
 {
     class PanelSQLCode : IControlsUI
-    {
-        static RichTextBox richTextBox = new RichTextBox();
+    {   
+        static RichTextBox richTextBox = IControlsUI.RichTextBox;
+        
+        public PanelSQLCode() => IControlsUI.RichTextBox = new RichTextBox();
         
         public void CreateControls(ref Form form)
         {

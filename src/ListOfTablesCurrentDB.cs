@@ -1,0 +1,7 @@
+﻿namespace SQLProgram
+{
+    class ListOfTablesCurrentDB
+    {
+
+    }
+}

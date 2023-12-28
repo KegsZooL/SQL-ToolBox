@@ -30,15 +30,17 @@ namespace SQLProgram
         
         public static void ExecuteCommand(string command)
         {
-            if (command.Length <= 0)
+            if (string.IsNullOrEmpty(command))
                 return;
             try 
             {
+                dataTable.Clear();
+                dataTable.Columns.Clear();
+
                 using (mySqlDataAdapter.SelectCommand = new MySqlCommand(command, mySqlConnection))
                 {
-                    dataTable.Clear();
-                    dataGridView.DataSource = dataTable;
                     mySqlDataAdapter.Fill(dataTable);
+                    dataGridView.DataSource = dataTable;
                 }
             }
             catch(MySqlException ex) 
@@ -48,6 +50,34 @@ namespace SQLProgram
 
                 MessageBox.Show($"{ex.Message}", "SQL syntax error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+        
+        public static List<string> ExecuteListCommand(string command)
+        {   
+            if (string.IsNullOrEmpty(command))
+                return null;
+
+            List<string> dataTables = new List<string>();
+
+            try 
+            {
+                using (mySqlDataAdapter.SelectCommand = new MySqlCommand(command, mySqlConnection))
+                {
+                    using(MySqlDataReader mySqlDataReader = mySqlDataAdapter.SelectCommand.ExecuteReader()) 
+                    {
+                        while (mySqlDataReader.Read()) 
+                        {
+                            dataTables.Add(mySqlDataReader.GetString(0));   
+                        }
+                    }
+                }
+            }
+            catch(MySqlException ex) 
+            {   
+                MessageBox.Show($"{ex.Message}", "SQL syntax error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
+            }
+            return dataTables;
         }
 
         public static void ChangeDataBase(string dataBase) 
