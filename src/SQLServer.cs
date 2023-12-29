@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using System.Diagnostics;
 using System.Data;
 
 namespace SQLProgram
@@ -9,7 +10,6 @@ namespace SQLProgram
         static DataTable dataTable = new DataTable();
         static MySqlDataAdapter mySqlDataAdapter = new MySqlDataAdapter();
         public static DataGridView dataGridView = new DataGridView();
-
         public bool Connect(string host, string user, string password)
         {
             //string connectionString = $"Data Source={host};User Id={user};Password={password};";
@@ -32,24 +32,48 @@ namespace SQLProgram
         {
             if (string.IsNullOrEmpty(command))
                 return;
-            try 
-            {
-                dataTable.Clear();
-                dataTable.Columns.Clear();
 
-                using (mySqlDataAdapter.SelectCommand = new MySqlCommand(command, mySqlConnection))
+            DataTable copyDataTable = dataTable.Copy();
+
+            try 
+            {   
+                using(MySqlCommand sqlCommand = new MySqlCommand(command, mySqlConnection)) 
                 {
-                    mySqlDataAdapter.Fill(dataTable);
-                    dataGridView.DataSource = dataTable;
+                    dataTable.Clear();
+                    dataTable.Columns.Clear();
+                    
+                    using(mySqlDataAdapter.SelectCommand = sqlCommand) 
+                    {
+                        mySqlDataAdapter.Fill(dataTable);
+                        dataGridView.DataSource = dataTable;
+                    }
                 }
             }
             catch(MySqlException ex) 
-            {   
-                mySqlDataAdapter.SelectCommand.CommandText = "SELECT * FROM othertable";
-                mySqlDataAdapter.Fill(dataTable);
-
+            {
+                mySqlDataAdapter.Fill(copyDataTable);
+                dataGridView.DataSource = copyDataTable;
                 MessageBox.Show($"{ex.Message}", "SQL syntax error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }        
+        
+        public static string ExecuteStrCommand(string command)
+        {
+            if (string.IsNullOrEmpty(command))
+                return null;
+            try 
+            {
+                using(MySqlCommand mySqlCommand = mySqlConnection.CreateCommand())
+                {
+                    mySqlCommand.CommandText = command;
+                    return mySqlCommand.ExecuteScalar().ToString();
+                }
+            }
+            catch(MySqlException ex) 
+            {
+                Debug.WriteLine($"Error: {ex.Message}");
+            }
+            return null;
         }
         
         public static List<string> ExecuteListCommand(string command)
@@ -57,7 +81,7 @@ namespace SQLProgram
             if (string.IsNullOrEmpty(command))
                 return null;
 
-            List<string> dataTables = new List<string>();
+            List<string> values = new List<string>();
 
             try 
             {
@@ -67,17 +91,28 @@ namespace SQLProgram
                     {
                         while (mySqlDataReader.Read()) 
                         {
-                            dataTables.Add(mySqlDataReader.GetString(0));   
+                            values.Add(mySqlDataReader.GetString(0));   
                         }
                     }
                 }
             }
             catch(MySqlException ex) 
-            {   
-                MessageBox.Show($"{ex.Message}", "SQL syntax error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            {
+                Debug.WriteLine($"Error: {ex.Message}");
                 return null;
             }
-            return dataTables;
+            return values;
+        }
+
+        public static List<string> GetAllTableNames()
+        {
+            string dbName = ExecuteStrCommand("SELECT DATABASE()");
+
+            if(!string.IsNullOrEmpty(dbName)) 
+            {
+                return ExecuteListCommand($"SELECT TABLE_NAME FROM information_schema.tables WHERE table_schema = '{dbName}';");
+            }
+            return null;
         }
 
         public static void ChangeDataBase(string dataBase) 

@@ -38,8 +38,8 @@ namespace SQLProgram
                     Controls.Remove(Controls[Controls.Count - 1]);
                 }
 
-                UI.Subscribe(new List<IControlsUI>() { new DataTableSQL(), new PanelSQLCode(), 
-                                                       new ButtonExecuteSQLCode(), new DataBaseList() });
+                UI.Subscribe(new List<IControlsUI>() { new DataTableSQL(), new PanelSQLCode(), new ButtonExecuteSQLCode(), 
+                                                       new ListDataBaseSchemas(), new ListDataBaseTables() });
                 UI.Notify(ref CurrentForm);
 
                 originalControlRectangle.Clear();

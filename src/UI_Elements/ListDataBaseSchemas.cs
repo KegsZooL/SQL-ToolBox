@@ -1,18 +1,17 @@
 ﻿namespace SQLProgram
 {   
-    class DataBaseList : IControlsUI
+    class ListDataBaseSchemas : IControlsUI
     {
         Label label;
         ComboBox comboBox;
 
-        public DataBaseList() 
+        public ListDataBaseSchemas() 
         {
-            IControlsUI.LabelDataBaseList = new Label();
+            IControlsUI.LabelSchemasCurrentDb = new Label();
             IControlsUI.ComboBox = new ComboBox();
             
             comboBox = IControlsUI.ComboBox;
-            label = IControlsUI.LabelDataBaseList;
-
+            label = IControlsUI.LabelSchemasCurrentDb;
         }
 
         public void CreateControls(ref Form form)
@@ -26,12 +25,13 @@
             comboBox.Location = new Point(label.Location.X + label.Width, label.Location.Y);
             comboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox.Items.AddRange(SQLServer.ExecuteListCommand("SHOW DATABASES")?.ToArray());
-            comboBox.SelectedIndexChanged += ComboBox_SelectedIndexChanged;
+
+            comboBox.SelectedIndexChanged += SelectedDataBaseChanged;
 
             form.Controls.AddRange(new List<Control>(){ label, comboBox}.ToArray());
         }
 
-        private void ComboBox_SelectedIndexChanged(object? sender, EventArgs e) =>
+        private void SelectedDataBaseChanged(object? sender, EventArgs e) => 
             SQLServer.ChangeDataBase(comboBox.SelectedItem?.ToString());
     }
 }
