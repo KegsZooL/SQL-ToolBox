@@ -7,7 +7,7 @@ namespace SQLProgram
         Rectangle originalFormSize;
 
         Dictionary<Control, Rectangle> originalControlRectangle = new Dictionary<Control, Rectangle>();
-
+        
         Form CurrentForm;
 
         UIEventHandler UI = new UIEventHandler();
